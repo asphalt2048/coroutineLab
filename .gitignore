@@ -1,0 +1,10 @@
+# 忽略 VS Code 配置文件夹
+.vscode/
+
+*.exe      # Windows 可执行文件  
+*.out      # Linux 编译输出文件  
+*.o        # 编译过程中的目标文件  
+*.so       # Linux 动态链接库  
+*.a        # Linux 静态链接库  
+*.dll      # Windows 动态链接库  
+*.class    # Java 字节码文件  
