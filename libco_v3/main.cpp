@@ -18,7 +18,6 @@
 #define CO_RETURN(a) end=true; start=-1; return a;
 
 struct coroutine_base {
-    /* TODO */
     int start=0;
     bool begin=false;
     bool end=false;
