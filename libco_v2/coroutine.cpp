@@ -16,7 +16,6 @@ coroutine* create(func_t coro_func, void* arg, const coroutine_attr* attr) {
     if (attr != nullptr) {
         at = *attr;
     }
-    // TODO: implement your code here
     coroutine* co=new coroutine;
     co->ctx={0};
     co->arg=arg;
@@ -56,12 +55,10 @@ coroutine* create(func_t coro_func, void* arg, const coroutine_attr* attr) {
 }
 
 void release(coroutine* co) {
-    // TODO: implement your code here
     delete co;
 }
 
 void save_stack(coroutine* co) {
-    // TODO: implement your code here
     if(co==nullptr) return;
     if(co->end) return;
     assert(co->size_has_used!=0);
@@ -75,7 +72,6 @@ void save_stack(coroutine* co) {
 }
 
 void swap(coroutine* curr, coroutine* pending) {
-    // TODO: implement your code here
     if(curr->stk_used!=nullptr){
         int get_stk_size=0xff;
         long long size=(curr->ctx.ss_sp)+(curr->ctx.ss_size)-(char*)(&get_stk_size);
@@ -104,7 +100,6 @@ static void func_wrap(coroutine* co) {
 }
 
 int resume(coroutine* co, int param) {
-    // TODO: implement your code here
     coroutine *caller=g_coro_env.get_coro();
     if(co->started==false){
         ctx_make(&(co->ctx),(void(*)(void*))func_wrap,co);
@@ -117,7 +112,6 @@ int resume(coroutine* co, int param) {
 }
 
 int yield(int ret) {
-    // TODO: implement your code here
     coroutine *cur=g_coro_env.get_coro();
     g_coro_env.pop();
     coroutine *caller=g_coro_env.get_coro();

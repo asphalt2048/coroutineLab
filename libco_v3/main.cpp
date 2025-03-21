@@ -25,11 +25,9 @@ struct coroutine_base {
 
 class fib : public coroutine_base {
 private:
-    /* TODO */
     int ret=0;
     int b=1;
 public:
-    // TODO: update below code when you implement
     // CO_BEGIN/CO_END/CO_YIELD/CO_RETURN
     int operator()() {
         CO_BEGIN

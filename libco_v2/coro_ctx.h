@@ -7,7 +7,6 @@ namespace coro {
 using func_t = void (*)(void *);
 
 struct context {
-    // TODO: add member variables you need
     void *rdi=0;
     void *rsi=0;
     void *rdx=0;

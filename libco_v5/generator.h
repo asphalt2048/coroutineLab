@@ -9,7 +9,6 @@ namespace coro {
 template <typename Ref, typename Value = std::remove_cvref_t<Ref>>
 class generator {
 public:
-    // TODO: implement promise_type
     struct promise_type;
     using handle=std::coroutine_handle<promise_type>;
     struct promise_type{
@@ -95,7 +94,6 @@ public:
     generator() noexcept = default;
 
     ~generator() noexcept {
-        /* TODO */
         if(coro) coro.destroy();
     }
 
@@ -127,14 +125,12 @@ public:
 
         ~iterator() {}
 
-        // TODO: implement operator== and operator!=
         friend bool operator==(const iterator& it,empty) noexcept {
             return (!it.coro_)||it.coro_.done();
         }
         friend bool operator!=(const iterator& it,empty) noexcept{
             return it.coro_&&(!it.coro_.done());
         }
-        // TODO: implement operator++ and operator++(int)
         iterator& operator++(){
             coro_.promise().resume();
             return *this;
@@ -142,7 +138,6 @@ public:
         void operator++(int){
             (void)operator++();
         }
-        // TODO: implement operator* and operator->
         reference operator*()const noexcept{
             return static_cast<reference>(*coro_.promise().data);
         }
@@ -154,15 +149,11 @@ public:
     private:
         friend generator;
 
-        // TODO: implement iterator constructor
-        // hint: maybe you need to a promise handle
         explicit iterator(handle p) noexcept {coro_=p;}
 
-        // TODO: add member variables you need
         handle coro_;
     };
 
-    // TODO: implement begin() and end() member functions
     iterator begin(){
         if(coro)
             coro.resume();
@@ -174,10 +165,8 @@ public:
     }
 
 private:
-    // TODO: implement generator constructor
     explicit generator(handle coro_in) noexcept {coro=coro_in;}
 
-    // TODO: add member variables you need
     handle coro;
 };
 

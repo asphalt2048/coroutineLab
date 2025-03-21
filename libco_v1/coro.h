@@ -20,7 +20,6 @@ struct coroutine {
     func_t coro_func = nullptr;
     void* args = nullptr;
 
-    // TODO: add member variables you need
     char stack[1024*1024];
     ucontext_t ctx = {0};
     int state=0;//-1 indecates the end of coroutine, that to say, yield(-1) means the coro has ended
@@ -35,7 +34,6 @@ struct coroutine {
 
 class coroutine_env {
 private:
-    // TODO: add member variables you need
     coroutine* stack[10]={nullptr}; //the stack stores coroutines
     int top=-1;
 public:

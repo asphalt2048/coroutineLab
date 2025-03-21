@@ -15,7 +15,6 @@ struct sleep {
 
     std::chrono::milliseconds delay;
 
-    // TODO: add functions to make sleep be an awaitable object
 
     bool await_ready()noexcept{return false;}
     void await_suspend(std::coroutine_handle<> h) noexcept {
@@ -27,7 +26,6 @@ struct sleep {
 };
 
 struct Task {
-    // TODO: add functions to make Task be an coroutine handle
 public:
     struct promise_type;
     using handle=std::coroutine_handle<promise_type>;
@@ -43,7 +41,6 @@ public:
 };
 
 void wait_task_queue_empty() {
-    // TODO: block current thread until task queue is empty
     while (!my_queue.empty())
     {
         std::coroutine_handle<> h=my_queue.front();

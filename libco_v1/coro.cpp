@@ -5,13 +5,11 @@ namespace coro {
 static coroutine_env g_coro_env;
 
 coroutine* create(func_t func, void* args) {
-    // TODO: implement your code here
     coroutine* co=new coroutine(func,args);
     return co;
 }
 
 void release(coroutine* co) {
-    // TODO: implement your code here
     delete co;
 }
 
@@ -26,7 +24,6 @@ static void func_wrap(coroutine* co) {
 }
 
 int resume(coroutine* co, int param) {
-    // TODO: implement your code here
     if(co->state==-1)//ended
         return -1;
 
@@ -50,7 +47,6 @@ int resume(coroutine* co, int param) {
 }
 
 int yield(int ret) {
-    // TODO: implement your code here
     coroutine* cur=g_coro_env.get_coro();
     g_coro_env.pop();
     coroutine* caller=g_coro_env.get_coro();
