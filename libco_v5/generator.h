@@ -4,8 +4,9 @@
 #include <iterator>
 #include <utility>
 
+// Support nested call of coroutines
 namespace coro {
-
+// std::remove_cvref_t will remove the annotations of 'const' 'volatile' and '&'
 template <typename Ref, typename Value = std::remove_cvref_t<Ref>>
 class generator {
 public:
@@ -18,10 +19,11 @@ public:
                 promise_type* leaf_;
                 promise_type* root_;
             };
+            // transform a given type into a pointer type. If the type is a reference type, remove reference before transforming
             std::add_pointer_t<Ref> data;
             promise_type* parent_;
 
-
+            // TODO: should i initialize parent_ as this, and leaf_ as this?
             promise_type():root_(this){}
 
             generator<Ref,Value> get_return_object(){return generator(this->co());}
@@ -49,14 +51,15 @@ public:
 
 
             std::suspend_always yield_value(Ref& value) noexcept {
+                // TODO: should i change this? store the return value in leaf
                 root_->data=std::addressof(value);
                 return {};
             }
 
-            std::suspend_always yield_value(Ref&& value) noexcept {
-                root_->data=std::addressof(value);
-                return {};
-            }
+            //std::suspend_always yield_value(Ref&& value) noexcept {
+            //    root_->data=std::addressof(value);
+            //    return {};
+            //}
 
 
             //co_yield a generator
@@ -138,6 +141,7 @@ public:
         void operator++(int){
             (void)operator++();
         }
+        // TODO: what is the difference?
         reference operator*()const noexcept{
             return static_cast<reference>(*coro_.promise().data);
         }

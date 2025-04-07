@@ -47,7 +47,7 @@ public:
         using pointer = std::add_pointer_t<Ref>;
 
         iterator() noexcept = default;
-        iterator(const iterator&) = delete;
+        iterator(const iterator&) = delete; // not copy assignable
         iterator(iterator&& o) {
             std::swap(coro_, o.coro_);
         }
@@ -60,9 +60,11 @@ public:
         ~iterator() {}
 
         // implement operator== and operator!=
+        // used for comparing iter == gen.end
         bool operator==(const empty&) const noexcept{
             return !coro_||coro_.done();
         }
+        // used for comparing iter != gen.end()
         bool operator!=(const empty&) const noexcept{
             return coro_&&!coro_.done();
         }

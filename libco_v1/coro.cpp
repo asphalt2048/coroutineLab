@@ -30,6 +30,7 @@ int resume(coroutine* co, int param) {
     coroutine* caller=g_coro_env.get_coro();
     //if start for the first time, initialize
     if(!co->started){
+        // TODO: can this call to getcontext to skipped?
         getcontext(&co->ctx);
         co->ctx.uc_link=&(caller->ctx);
         co->ctx.uc_stack.ss_sp=co->stack;
